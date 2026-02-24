@@ -20,9 +20,11 @@ import { Separator } from '@/components/ui/separator'
 import type { SignInFormFields } from '@/interface/auth.interface'
 import { useSignInSchema } from '@/hooks/useSignInSchema'
 import Link from 'next/link'
+import { useLogin } from '../api/use-login'
 
 export const SignInCard = () => {
-  const formSchema = useSignInSchema()
+  const { mutate } = useLogin();
+  const formSchema = useSignInSchema
 
   const formHook = useForm<SignInFormFields>({
     resolver: zodResolver(formSchema),
@@ -31,7 +33,7 @@ export const SignInCard = () => {
   })
 
   const onSubmit = (values: SignInFormFields) => {
-    console.log(values)
+    mutate({ json:values });
   }
 
   return (

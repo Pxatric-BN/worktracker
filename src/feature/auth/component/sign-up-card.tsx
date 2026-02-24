@@ -26,9 +26,11 @@ import { Separator } from "@/components/ui/separator"
 
 import type { SignUpFormFields } from "@/interface/auth.interface"
 import { useSignUpSchema } from "@/hooks/useSignUpSchema"
+import { useRegister } from "../api/use-register"
 
 export const SignUpCard = () => {
-  const schema = useSignUpSchema()
+  const { mutate } = useRegister()
+  const schema = useSignUpSchema
 
   const form = useForm<SignUpFormFields>({
     resolver: zodResolver(schema),
@@ -41,7 +43,7 @@ export const SignUpCard = () => {
   })
 
   const onSubmit = (values: SignUpFormFields) => {
-    console.log(values)
+    mutate({ json:values });
   }
 
   return (
