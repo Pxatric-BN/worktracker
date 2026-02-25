@@ -1,13 +1,15 @@
-import { Button } from "@/components/ui/button"
+import { getCurrent } from "@/feature/auth/action";
+import { UserButton } from "@/feature/auth/component/user-button";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+
+export default async function Home() {
+  const user = await getCurrent();
+
+  if (!user) redirect("/sign-in");
   return (
-    <div className="flex gap-4">
-      <Button>Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="destructive">Destructive</Button>
-      <Button variant="ghost">Ghost</Button>
-      <Button variant="outline">outlined</Button>
+    <div>
+       <UserButton />
     </div>
   )
 }

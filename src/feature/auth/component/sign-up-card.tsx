@@ -26,9 +26,11 @@ import { Separator } from "@/components/ui/separator"
 
 import type { SignUpFormFields } from "@/interface/auth.interface"
 import { useSignUpSchema } from "@/hooks/useSignUpSchema"
+import { useRegister } from "../api/use-register"
 
 export const SignUpCard = () => {
-  const schema = useSignUpSchema()
+  const { mutate, isPending } = useRegister()
+  const schema = useSignUpSchema
 
   const form = useForm<SignUpFormFields>({
     resolver: zodResolver(schema),
@@ -41,7 +43,7 @@ export const SignUpCard = () => {
   })
 
   const onSubmit = (values: SignUpFormFields) => {
-    console.log(values)
+    mutate({ json:values });
   }
 
   return (
@@ -128,8 +130,8 @@ export const SignUpCard = () => {
               )}
             />
 
-            <Button type="submit" size="lg" className="w-full">
-              Sign Up
+            <Button disabled={isPending} type="submit" size="lg" className="w-full">
+              Register
             </Button>
 
           </form>
@@ -141,12 +143,12 @@ export const SignUpCard = () => {
       </div>
 
       <CardContent className="p-7 flex flex-col gap-y-4">
-        <Button type="button" variant="outline" size="lg" className="w-full">
+        <Button disabled={isPending} type="button" variant="outline" size="lg" className="w-full">
           <FcGoogle className="mr-2 size-5" />
           Sign up with Google
         </Button>
 
-        <Button type="button" variant="outline" size="lg" className="w-full">
+        <Button disabled={isPending} type="button" variant="outline" size="lg" className="w-full">
           <FaGithub className="mr-2 size-5" />
           Sign up with Github
         </Button>
