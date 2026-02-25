@@ -23,7 +23,7 @@ import Link from 'next/link'
 import { useLogin } from '../api/use-login'
 
 export const SignInCard = () => {
-  const { mutate } = useLogin();
+  const { mutate,isPending } = useLogin();
   const formSchema = useSignInSchema
 
   const formHook = useForm<SignInFormFields>({
@@ -89,7 +89,7 @@ export const SignInCard = () => {
               )}
             />
 
-            <Button type="submit" size="lg" className="w-full">
+            <Button disabled={isPending} type="submit" size="lg" className="w-full">
               Login
             </Button>
           </form>
@@ -101,12 +101,12 @@ export const SignInCard = () => {
       </div>
 
       <CardContent className="p-7 flex flex-col gap-y-4">
-        <Button type="button" variant="outline" size="lg" className="w-full">
+        <Button disabled={isPending} type="button" variant="outline" size="lg" className="w-full">
           <FcGoogle className="mr-2 size-5" />
           Login with Google
         </Button>
 
-        <Button type="button" variant="outline" size="lg" className="w-full">
+        <Button disabled={isPending} type="button" variant="outline" size="lg" className="w-full">
           <FaGithub className="mr-2 size-5" />
           Login with Github
         </Button>
