@@ -3,15 +3,13 @@ import { CreateWorkspaceForm } from "@/feature/workspaces/components/createWorks
 
 import { redirect } from "next/navigation";
 
-
 export default async function Home() {
-
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
-  
+
   return (
     <div className="bg-neutral-500 p-4 h-full">
-       <CreateWorkspaceForm  />
+      <CreateWorkspaceForm />
     </div>
-  )
+  );
 }

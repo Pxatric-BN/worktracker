@@ -1,1 +1,1 @@
-export const AUTH_COOKIE = "worktracker-session"
+export const AUTH_COOKIE = "worktracker-session";
