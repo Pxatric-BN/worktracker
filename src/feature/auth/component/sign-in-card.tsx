@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
-
+import { Typewriter } from 'react-simple-typewriter'
 import {
   Form,
   FormControl,
@@ -39,7 +39,17 @@ export const SignInCard = () => {
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
       <CardHeader className="flex items-center justify-center text-center p-7">
-        <CardTitle className="text-2xl">Welcome back!</CardTitle>
+        <CardTitle className="text-2xl">
+          <Typewriter
+            words={['Welcome back!']}
+            loop={0}             
+            cursor
+            cursorStyle="|"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={1200}
+          />
+        </CardTitle>
       </CardHeader>
 
       <div className="px-7 mb-2">

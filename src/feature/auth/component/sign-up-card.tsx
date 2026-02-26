@@ -27,6 +27,7 @@ import { Separator } from "@/components/ui/separator"
 import type { SignUpFormFields } from "@/interface/auth.interface"
 import { useSignUpSchema } from "@/hooks/useSignUpSchema"
 import { useRegister } from "../api/use-register"
+import { Typewriter } from "react-simple-typewriter"
 
 export const SignUpCard = () => {
   const { mutate, isPending } = useRegister()
@@ -49,7 +50,17 @@ export const SignUpCard = () => {
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
       <CardHeader className="flex items-center justify-center text-center p-7">
-        <CardTitle className="text-2xl">Sign-up</CardTitle>
+        <CardTitle className="text-2xl">
+          <Typewriter
+                      words={['Sign-Up']}
+                      loop={0}             
+                      cursor
+                      cursorStyle="|"
+                      typeSpeed={70}
+                      deleteSpeed={50}
+                      delaySpeed={1200}
+                    />
+        </CardTitle>
 
         <CardDescription>
           By signing up, you agree to our{" "}
