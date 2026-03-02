@@ -25,8 +25,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 import type { SignUpFormFields } from "@/interface/auth.interface";
-import { useSignUpSchema } from "@/hooks/useSignUpSchema";
-import { useRegister } from "../api/use-register";
+import { useSignUpSchema } from "@/feature/auth/hooks/useSignUpSchema";
+import { useRegister } from "../hooks/use-register";
 import { Typewriter } from "react-simple-typewriter";
 
 export const SignUpCard = () => {

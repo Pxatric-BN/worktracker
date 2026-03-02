@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { useLogout } from "../api/use-logout";
-import { useCurrent } from "../api/use-current";
+import { useLogout } from "../hooks/use-logout";
+import { useCurrent } from "../hooks/use-current";
 import { Loader, LogOut } from "lucide-react";
 
 export const UserButton = () => {

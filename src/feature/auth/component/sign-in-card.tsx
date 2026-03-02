@@ -18,9 +18,9 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 import type { SignInFormFields } from "@/interface/auth.interface";
-import { useSignInSchema } from "@/hooks/useSignInSchema";
+import { useSignInSchema } from "@/feature/auth/hooks/useSignInSchema";
 import Link from "next/link";
-import { useLogin } from "../api/use-login";
+import { useLogin } from "../hooks/use-login";
 
 export const SignInCard = () => {
   const { mutate, isPending } = useLogin();
