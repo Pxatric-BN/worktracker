@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { useCreateWorkspaces } from "../hooks/useCreateWorkspaces";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ImageIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface CreateWorkspaceFormProps {
   onCancel?: () => void;
@@ -29,6 +30,7 @@ interface CreateWorkspaceFormProps {
 type CreateWorkspaceFormValues = z.infer<typeof createWorkspacesSchema>;
 
 export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
+  const router = useRouter();
   const { mutate, isPending } = useCreateWorkspaces();
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,9 +51,9 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
     mutate(
       { form: finalValues },
       {
-        onSuccess: () => {
+        onSuccess: ({ data }) => {
           form.reset();
-          // TODO: Redirect to new workspace
+          router.push(`/workspaces/${data.$id}`);
         },
       },
     );
