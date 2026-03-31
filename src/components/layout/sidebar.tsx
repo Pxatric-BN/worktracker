@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { Navigation } from "../ui/navigation";
+import { WorkspaceSwitcher } from "./workspace-switcher";
 
 export const Sidebar = () => {
   return (
@@ -10,6 +11,8 @@ export const Sidebar = () => {
         <Image src="/logo.svg" alt="logo" width={52} height={56} />
         <span className="text-neutral-700 font-extrabold">WORK TRACKER</span>
       </Link>
+      <Separator className="my-4" />
+      <WorkspaceSwitcher />
       <Separator className="my-4" />
       <Navigation />
     </aside>
