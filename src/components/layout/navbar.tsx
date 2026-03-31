@@ -1,6 +1,6 @@
-'use client'
-import { Button } from "@/components/ui/button"
-import Image from "next/image"
+"use client";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,18 +11,16 @@ const Navbar = () => {
     <nav className="flex items-center justify-between">
       <div className="flex items-center gap-3">
         <Image src="/logo.svg" alt="logo" width={52} height={56} />
-        <span className="text-neutral-700 font-extrabold">
-          WORK TRACKER
-        </span>
+        <span className="text-neutral-700 font-extrabold">WORK TRACKER</span>
       </div>
 
       <Button asChild variant="outline">
         <Link href={isSignIn ? "/sign-up" : "/sign-in"}>
-          {isSignIn ? "Sign Up": "Login"}
+          {isSignIn ? "Sign Up" : "Login"}
         </Link>
       </Button>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
