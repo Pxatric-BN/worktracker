@@ -135,6 +135,33 @@ const app = new Hono()
     await databases.deleteDocument(DATABASE_ID, WORKSPACE_ID, workspaceId);
 
     return c.json({ data: { $id: workspaceId } });
+  })
+
+  .post("/:workspaceId/reset-invite-code", sessionMiddleware, async (c) => {
+    const databases = c.get("databases");
+    const user = c.get("user");
+
+    const { workspaceId } = c.req.param();
+
+    const member = await getMember({
+      databases,
+      userId: user.$id,
+      workspaceId,
+    });
+    if (!member || member.role !== MemberRole.ADMIN) {
+      return c.json({ error: "Workspace not found" }, 404);
+    }
+
+    const workspace = await databases.updateDocument(
+      DATABASE_ID,
+      WORKSPACE_ID,
+      workspaceId,
+      {
+        inviteCode: genereteInviteCode(6),
+      },
+    );
+
+    return c.json({ data: workspace });
   });
 
 export default app;
