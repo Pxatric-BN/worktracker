@@ -10,16 +10,22 @@ import { useWorkspaceId } from "@/feature/workspaces/hooks/useWorkspaceId";
 import { useQueryState } from "nuqs";
 import { DataFilters } from "./dataFilter";
 import { useTaskFilters } from "../hooks/useTaskFilter";
+import { DataTable } from "./dataTable";
+import { useParams } from "next/navigation";
+import { columns } from "./columns";
 
 export const TaskViewSwitcher = () => {
+  const params = useParams();
+  const currentProjectId = params.projectId as string;
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
+  const finalProjectId = projectId ?? currentProjectId;
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
   const workspaceId = useWorkspaceId();
   const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({
     workspaceId,
-    projectId,
+    projectId: finalProjectId,
     assigneeId,
     status,
     dueDate,
@@ -64,7 +70,7 @@ export const TaskViewSwitcher = () => {
         ) : (
           <>
             <TabsContent value="table" className="mt-0">
-              {JSON.stringify(tasks)}
+              <DataTable columns={columns} data={tasks?.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
               {JSON.stringify(tasks)}

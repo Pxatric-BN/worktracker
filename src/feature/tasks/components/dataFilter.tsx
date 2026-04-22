@@ -7,40 +7,27 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { useGetMembers } from "@/feature/members/hook/useGetMember";
-import { useGetProjects } from "@/feature/projects/hook/useGetProjects";
-import { FolderIcon, ListCheckIcon, UserIcon } from "lucide-react";
+import { ListCheckIcon, UserIcon } from "lucide-react";
 import { TaskStatus } from "../type";
 import { useWorkspaceId } from "@/feature/workspaces/hooks/useWorkspaceId";
 import { useTaskFilters } from "../hooks/useTaskFilter";
 import { DatePicker } from "@/components/ui/date-picker";
 
-interface DataFiltersProps {
-  hideProjectFilter?: boolean;
-}
-
-export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
+export const DataFilters = () => {
   const workspaceId = useWorkspaceId();
-  const { data: projects, isLoading: isLoadingProjects } = useGetProjects({
-    workspaceId,
-  });
+
   const { data: members, isLoading: isLoadingMembers } = useGetMembers({
     workspaceId,
   });
 
-  const isLoading = isLoadingProjects || isLoadingMembers;
-
-  const projectOptions = projects?.documents.map((project) => ({
-    value: project.$id,
-    label: project.name,
-  }));
+  const isLoading = isLoadingMembers;
 
   const memberOptions = members?.documents.map((member) => ({
     value: member.$id,
     label: member.name,
   }));
 
-  const [{ status, assigneeId, projectId, dueDate }, setFilters] =
-    useTaskFilters();
+  const [{ status, assigneeId, dueDate }, setFilters] = useTaskFilters();
 
   const onStatusChange = (value: string) => {
     if (value === "all") {
@@ -51,21 +38,14 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
   };
 
   const onAssigneeChange = (value: string) => {
-    setFilters({ assigneeId: value === "all" ? null : (value as string) });
-  };
-
-  const onProjectChange = (value: string) => {
-    setFilters({ projectId: value === "all" ? null : (value as string) });
+    setFilters({ assigneeId: value === "all" ? null : value });
   };
 
   if (isLoading) return null;
 
   return (
     <div className="flex flex-col lg:flex-row gap-2">
-      <Select
-        defaultValue={status ?? undefined}
-        onValueChange={(value) => onStatusChange(value)}
-      >
+      <Select defaultValue={status ?? undefined} onValueChange={onStatusChange}>
         <SelectTrigger className="w-full lg:w-auto h-8">
           <div className="flex items-center pr-2">
             <ListCheckIcon className="size-4 mr-2" />
@@ -82,9 +62,10 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
           <SelectItem value={TaskStatus.TODO}>Todo</SelectItem>
         </SelectContent>
       </Select>
+
       <Select
         defaultValue={assigneeId ?? undefined}
-        onValueChange={(value) => onAssigneeChange(value)}
+        onValueChange={onAssigneeChange}
       >
         <SelectTrigger className="w-full lg:w-auto h-8">
           <div className="flex items-center pr-2">
@@ -102,26 +83,7 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
           ))}
         </SelectContent>
       </Select>
-      <Select
-        defaultValue={projectId ?? undefined}
-        onValueChange={(value) => onProjectChange(value)}
-      >
-        <SelectTrigger className="w-full lg:w-auto h-8">
-          <div className="flex items-center pr-2">
-            <FolderIcon className="size-4 mr-2" />
-            <SelectValue placeholder="All projects" />
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">ALL Projects</SelectItem>
-          <Separator />
-          {projectOptions?.map((project) => (
-            <SelectItem key={project.value} value={project.value}>
-              {project.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+
       <DatePicker
         placeholder="Due Date"
         className="h-8 w-full lg:w-auto"
