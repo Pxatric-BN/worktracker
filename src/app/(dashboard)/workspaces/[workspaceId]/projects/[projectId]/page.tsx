@@ -5,6 +5,7 @@ import { ProjectAvatar } from "@/feature/projects/components/projectAvatar";
 import { Button } from "@/components/ui/button";
 import { PencilIcon } from "lucide-react";
 import Link from "next/link";
+import { TaskViewSwitcher } from "@/feature/tasks/components/taskViewSwitcher";
 
 interface ProjectIdPageProps {
   params: {
@@ -38,7 +39,11 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
           <p className="text-lg font-semibold">{initialValues.name}</p>
         </div>
         <div>
-          <Button variant="secondary" size="sm" asChild>
+          <Button
+            size="sm"
+            asChild
+            className="bg-white text-black hover:bg-gray-100 border border-gray-200 shadow-sm"
+          >
             <Link
               href={`/workspaces/${initialValues.workspaceId}/projects/${initialValues.$id}/settings`}
             >
@@ -48,6 +53,7 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
           </Button>
         </div>
       </div>
+      <TaskViewSwitcher />
     </div>
   );
 };
