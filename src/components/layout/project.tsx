@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { ProjectAvatar } from "@/feature/projects/components/projectAvatar";
 
 export const Projects = () => {
-  const projectId = null; // TODO: get project id from url
   const workspaceId = useWorkspaceId();
   const { open } = useCreateProjectsModal();
   const pathname = usePathname();
@@ -23,7 +22,7 @@ export const Projects = () => {
         <p className="text-xs uppercase text-neutral-500">Projects</p>
         <RiAddCircleFill
           onClick={open}
-          className="size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition"
+          className="size-5 text-teal-700 cursor-pointer hover:opacity-75 transition"
         />
       </div>
       {data?.documents.map((project) => {
